@@ -21,11 +21,8 @@ class PostsPage extends StatelessWidget {
               PostTile(
                 tileColor: posts[i].color,
                 postTitle: posts[i].title,
-                onTileTap: () => context.router.push(
-                  SinglePostRoute(
-                    postId: posts[i].id,
-                  ),
-                ),
+                onTileTap: () =>
+                    context.router.pushNamed('/post/${posts[i].id}'),
               ),
           ],
         ),
