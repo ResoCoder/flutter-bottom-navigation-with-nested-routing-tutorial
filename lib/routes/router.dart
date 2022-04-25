@@ -19,10 +19,6 @@ import 'package:flutter_bottom_navigation_with_nested_routing_tutorial/users/use
             path: '',
             page: PostsPage,
           ),
-          AutoRoute(
-            path: ':postId',
-            page: SinglePostPage,
-          )
         ],
       ),
       AutoRoute(
@@ -35,17 +31,27 @@ import 'package:flutter_bottom_navigation_with_nested_routing_tutorial/users/use
             page: UsersPage,
           ),
           AutoRoute(
-            path: ':userId',
-            page: UserProfilePage,
-          ),
+              path: ':userId',
+              name: 'UserRouter',
+              page: EmptyRouterPage,
+              children: [
+                AutoRoute(path: '', page: UserProfilePage),
+                AutoRoute(
+                    path: 'posts', name: 'UserPostsRoute', page: PostsPage),
+              ]),
         ],
       ),
       AutoRoute(
         path: 'settings',
         name: 'SettingsRouter',
         page: SettingsPage,
-      )
+      ),
     ]),
+    AutoRoute(
+        path: '/post',
+        name: 'PostRouter',
+        page: EmptyRouterPage,
+        children: [AutoRoute(path: ':postId', page: SinglePostPage)])
   ],
 )
 class $AppRouter {}
