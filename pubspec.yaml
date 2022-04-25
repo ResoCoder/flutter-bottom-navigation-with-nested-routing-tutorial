@@ -1,15 +1,15 @@
 name: flutter_bottom_navigation_with_nested_routing_tutorial
 description: Flutter Bottom Navigation with Nested Routing Tutorial.
 publish_to: 'none' 
-version: 1.0.0+1
+version: 1.1.0+1
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.16.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  auto_route: ^2.3.2
+  auto_route: ^3.2.4
   salomon_bottom_bar: ^3.1.0
 
 dev_dependencies:
@@ -17,7 +17,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^1.0.4
-  auto_route_generator: ^2.3.2
+  auto_route_generator: ^3.2.3
   build_runner: ^2.1.2
 flutter:
   uses-material-design: true
