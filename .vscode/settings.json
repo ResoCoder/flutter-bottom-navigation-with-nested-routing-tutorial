@@ -1,6 +1,6 @@
 {
   "editor.fontSize": 18,
-  "window.zoomLevel": 3.5,
+  "window.zoomLevel": -1,
   "debug.console.fontSize": 18,
   "terminal.integrated.fontSize": 18
 }

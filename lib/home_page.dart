@@ -10,13 +10,14 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
       appBarBuilder: (_, tabsRouter) => AppBar(
-        backgroundColor: Colors.indigo,
-        title: const Text('FlutterBottomNav'),
-        centerTitle: true,
-        leading: const AutoBackButton(),
+        backgroundColor: Colors.red,
+        title: const Text('E-Park'),
+        //centerTitle: true,
+        leading: const Icon(Icons.local_parking_outlined),
       ),
-      backgroundColor: Colors.indigo,
+      backgroundColor: Colors.red,
       routes: const [
+        ParqueoRouter(),
         PostsRouter(),
         UsersRouter(),
         SettingsRouter(),
@@ -31,28 +32,36 @@ class HomePage extends StatelessWidget {
           onTap: tabsRouter.setActiveIndex,
           items: [
             SalomonBottomBarItem(
-              selectedColor: Colors.amberAccent,
+              selectedColor: Colors.white,
               icon: const Icon(
-                Icons.post_add,
+                Icons.car_repair,
                 size: 30,
               ),
-              title: const Text('Posts'),
+              title: const Text('Parqueos'),
             ),
             SalomonBottomBarItem(
-              selectedColor: Colors.blue[200],
+              selectedColor: Colors.white,
+              icon: const Icon(
+                Icons.attach_money,
+                size: 30,
+              ),
+              title: const Text('Pago'),
+            ),
+            SalomonBottomBarItem(
+              selectedColor: Colors.white,
               icon: const Icon(
                 Icons.person,
                 size: 30,
               ),
-              title: const Text('Users'),
+              title: const Text('Usuario'),
             ),
             SalomonBottomBarItem(
-              selectedColor: Colors.pinkAccent[100],
+              selectedColor: Colors.white,
               icon: const Icon(
                 Icons.settings,
                 size: 30,
               ),
-              title: const Text('Settings'),
+              title: const Text('Configuración'),
             )
           ],
         );

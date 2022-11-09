@@ -1,3 +1,6 @@
+import 'dart:html';
+import 'package:flutter_bottom_navigation_with_nested_routing_tutorial/routes/router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 class PostTile extends StatelessWidget {
@@ -41,6 +44,162 @@ class PostTile extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ParqueoWidget extends StatelessWidget {
+  final Color parqueoColor;
+  final int parqueoId;
+  final int numeroParqueo;
+  final int cupoParqueo;
+  final int tiempoParqueo;
+  final void Function()? onParqueoTap;
+  const ParqueoWidget({
+    Key? key,
+    required this.parqueoColor,
+    required this.parqueoId,
+    required this.numeroParqueo,
+    required this.cupoParqueo,
+    required this.tiempoParqueo,
+    this.onParqueoTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: onParqueoTap,
+        child: Container(
+            margin: const EdgeInsets.only(top: 30),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                border: Border.all(color: parqueoColor),
+                borderRadius: const BorderRadius.all(Radius.circular(20))),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.horizontal(
+                          left: Radius.circular(20), right: Radius.circular(0)),
+                      color: parqueoColor,
+                    ),
+                    height: 100.0,
+                    child: Text(
+                      numeroParqueo.toString(),
+                      style: const TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red),
+                    ),
+                    alignment: Alignment.center,
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.access_time_filled,
+                            color: parqueoColor,
+                          ),
+                          Text(
+                            '$tiempoParqueo minutos',
+                            style: TextStyle(color: parqueoColor),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.local_parking_outlined,
+                            color: parqueoColor,
+                          ),
+                          Text(
+                            '$cupoParqueo cupos',
+                            style: TextStyle(color: parqueoColor),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: GestureDetector(
+                    child: IconButton(
+                      alignment: Alignment.center,
+                      iconSize: 70,
+                      icon: Icon(
+                        Icons.location_on,
+                        color: parqueoColor,
+                      ),
+                      onPressed: () {
+                        context.router.push(SingleParqueoRoute(
+                          parqueoId: parqueoId,
+                        ));
+                      },
+                    ),
+                  ),
+                )
+              ],
+            )));
+  }
+}
+
+class MapaParqueo extends StatelessWidget {
+  final String linkImagen;
+  final String numeroParqueadero;
+  const MapaParqueo({
+    Key? key,
+    required this.linkImagen,
+    required this.numeroParqueadero,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Column(children: [
+          const SizedBox(height: 30),
+          Container(
+              alignment: Alignment.center,
+              width: 430,
+              height: 390,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.red),
+              ),
+              child: Image.network(
+                linkImagen,
+                width: 410,
+                height: 390,
+              )),
+          const SizedBox(height: 30),
+          TextButton(
+            child: const Text(
+              'Abrir en Google Maps',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text(
+                      'No Google Maps implementation in UI demonstration.')));
+            },
+          ),
+        ]),
+      ],
     );
   }
 }
