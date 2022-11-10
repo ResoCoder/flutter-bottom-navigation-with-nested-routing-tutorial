@@ -63,8 +63,6 @@ Widget popupConfirmacion(BuildContext context, int index, int numParqueo) {
           context.router.push(SelectedParqueoRoute(
             selectedId: numParqueo,
           ));
-          /*Navigator.push(context,
-              MaterialPageRoute(builder: (context) => SeleccionPage()));*/
         },
       ),
       TextButton(
@@ -74,9 +72,6 @@ Widget popupConfirmacion(BuildContext context, int index, int numParqueo) {
         ),
         onPressed: () {
           Navigator.of(context, rootNavigator: true).pop('dialog');
-
-          /*Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MapaPage()));*/
         },
       ),
     ],
