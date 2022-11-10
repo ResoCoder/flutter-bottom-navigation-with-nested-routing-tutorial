@@ -5,9 +5,10 @@ import 'package:flutter_bottom_navigation_with_nested_routing_tutorial/widgets.d
 
 class Post {
   static final posts = [
-    Post(Colors.white, 'Post 1', 1),
-    Post(Colors.white, 'Post 2', 2),
-    Post(Colors.white, 'Post 3', 3),
+    Post(Colors.white, 'Pago en línea', 1),
+    Post(Colors.white, 'Pago anticipado', 2),
+    Post(Colors.white, 'Check-In', 3),
+    Post(Colors.white, 'Check-Out', 4),
   ];
   final Color color;
   final String title;
