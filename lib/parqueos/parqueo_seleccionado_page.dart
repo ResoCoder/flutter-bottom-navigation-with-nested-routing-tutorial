@@ -31,10 +31,8 @@ class SelectedParqueoPage extends StatelessWidget {
                 null;
               },
             ),
-            MapaParqueo(
-                linkImagen:
-                    'https://2.bp.blogspot.com/-rAvZDK7KWWU/W4GIDCyrHTI/AAAAAAAAAFI/cn250kQYsD8_u8P-6FkrBixQ3QZ4ApsxACLcBGAs/s1600/route_google_map.png',
-                numeroParqueadero: parqueo.numeroParqueo.toString())
+            const SizedBox(height: 30),
+            const CodigoQR(),
           ],
         ),
       ),

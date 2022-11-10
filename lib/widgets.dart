@@ -158,6 +158,36 @@ class ParqueoWidget extends StatelessWidget {
   }
 }
 
+class CodigoQR extends StatelessWidget {
+  const CodigoQR({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 370,
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      child: Column(
+        children: const [
+          Icon(
+            Icons.qr_code_2,
+            size: 350.0,
+          ),
+          Text(
+            'Puede escanear este código QR en cualquier estación de pago del servicio de parqueo.',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 20)
+        ],
+      ),
+    );
+  }
+}
+
 class MapaParqueo extends StatelessWidget {
   final String linkImagen;
   final String numeroParqueadero;
