@@ -2,6 +2,10 @@ import 'dart:html';
 import 'package:flutter_bottom_navigation_with_nested_routing_tutorial/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:math';
 
 class PostTile extends StatelessWidget {
   final Color tileColor;
@@ -19,29 +23,22 @@ class PostTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTileTap,
-      child: Card(
-        margin: const EdgeInsets.only(bottom: 20),
-        color: tileColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 100,
-            vertical: 40,
-          ),
-          child: Column(
-            children: [
-              Text(
-                postTitle,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...',
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+      child: Container(
+        margin: const EdgeInsets.only(top: 30),
+        decoration: BoxDecoration(
+            color: tileColor,
+            borderRadius: const BorderRadius.all(Radius.circular(20))),
+        height: 100,
+        width: 300,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              postTitle,
+              style: const TextStyle(
+                  fontSize: 25, fontWeight: FontWeight.bold, color: Colors.red),
+            ),
+          ],
         ),
       ),
     );
@@ -188,48 +185,125 @@ class CodigoQR extends StatelessWidget {
   }
 }
 
-class MapaParqueo extends StatelessWidget {
-  final String linkImagen;
-  final String numeroParqueadero;
-  const MapaParqueo({
-    Key? key,
-    required this.linkImagen,
-    required this.numeroParqueadero,
-  }) : super(key: key);
+class MapaPage extends StatefulWidget {
+  const MapaPage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<MapaPage> {
+  Completer<GoogleMapController> _controller = Completer();
+  // Ajusta la posicion de la camara
+  static final CameraPosition _kGoogle = const CameraPosition(
+    target: LatLng(20.42796133580664, 80.885749655962),
+    zoom: 14.4746,
+  );
+
+  // Creacion de la lista de markers
+  final List<Marker> _markers = <Marker>[
+    // ignore: prefer_const_constructors
+  ];
+
+  // Metodo para obtener la ubicacion actuak
+  Future<Position> getUserCurrentLocation() async {
+    await Geolocator.requestPermission()
+        .then((value) {})
+        .onError((error, stackTrace) async {
+      await Geolocator.requestPermission();
+      print("ERROR" + error.toString());
+    });
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Column(children: [
-          const SizedBox(height: 30),
-          Container(
-              alignment: Alignment.center,
-              width: 430,
-              height: 390,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.red),
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: GoogleMap(
+          // Propiedad de la posicion inicial de la camara
+          initialCameraPosition: _kGoogle,
+          // Markers del mapa
+          markers: Set<Marker>.of(_markers),
+          // Tipo de mapa
+          mapType: MapType.normal,
+          // Ubicacion activada
+          myLocationEnabled: true,
+          // Compass activado
+          compassEnabled: true,
+          // Mapa completo del controlador
+          onMapCreated: (GoogleMapController controller) {
+            _controller.complete(controller);
+          },
+        ),
+      ),
+
+      // oN Pressed lleva al usuario a la ubicacion actual.
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          getUserCurrentLocation().then((value) async {
+            print(value.latitude.toString() + " " + value.longitude.toString());
+
+            Random random = new Random();
+            int randomNumber1 = random.nextInt(100);
+            int randomNumber2 = random.nextInt(100);
+            int randomNumber3 = random.nextInt(100);
+
+            // Marker aÃ±adido
+            _markers.add(Marker(
+              markerId: MarkerId("Currentlocation"),
+              position: LatLng(11.018800, -74.851207),
+              infoWindow: InfoWindow(
+                title: 'My Current Location, Coordinates 11.018800,-74.851207',
               ),
-              child: Image.network(
-                linkImagen,
-                width: 410,
-                height: 390,
-              )),
-          const SizedBox(height: 30),
-          TextButton(
-            child: const Text(
-              'Abrir en Google Maps',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text(
-                      'No Google Maps implementation in UI demonstration.')));
-            },
-          ),
-        ]),
-      ],
+              icon: BitmapDescriptor.defaultMarker,
+            ));
+
+            _markers.add(Marker(
+              markerId: MarkerId("PARQ1"),
+              position: LatLng(11.019728, -74.845634),
+              infoWindow: InfoWindow(
+                title:
+                    'Parqueadero 1, Numero de plazas disponibles $randomNumber1',
+              ),
+              icon: BitmapDescriptor.defaultMarker,
+            ));
+
+            _markers.add(Marker(
+              markerId: MarkerId("PARQ2"),
+              position: LatLng(11.020297, -74.849561),
+              infoWindow: InfoWindow(
+                title:
+                    'Parquadero 2, Numero de plazas disponibles $randomNumber2',
+              ),
+              icon: BitmapDescriptor.defaultMarker,
+            ));
+
+            _markers.add(Marker(
+              markerId: MarkerId("PARQ3"),
+              position: LatLng(11.020107, -74.848735),
+              infoWindow: InfoWindow(
+                title:
+                    'Parquadero 3, Numero de plazas disponibles $randomNumber3',
+              ),
+              icon: BitmapDescriptor.defaultMarker,
+            ));
+
+            CameraPosition cameraPosition = new CameraPosition(
+              target: LatLng(11.018800, -74.851207),
+              zoom: 15,
+            );
+
+            final GoogleMapController controller = await _controller.future;
+            controller
+                .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+            setState(() {});
+          });
+        },
+        child: Icon(Icons.travel_explore),
+      ),
     );
   }
 }
@@ -237,11 +311,13 @@ class MapaParqueo extends StatelessWidget {
 class UserAvatar extends StatelessWidget {
   final Color avatarColor;
   final String username;
+  final Color textColor;
   final void Function()? onAvatarTap;
   const UserAvatar({
     Key? key,
     required this.avatarColor,
     required this.username,
+    required this.textColor,
     this.onAvatarTap,
   }) : super(key: key);
 
@@ -265,10 +341,7 @@ class UserAvatar extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               username,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 14, color: textColor),
               textAlign: TextAlign.center,
             ),
           ],

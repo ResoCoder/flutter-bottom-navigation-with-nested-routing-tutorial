@@ -19,14 +19,13 @@ class Post {
 
 class User {
   static final users = [
-    User(Colors.white, 1),
-    User(Colors.white, 2),
-    User(Colors.white, 3),
+    User(Colors.white, 'Placeholder', 1),
   ];
   final Color color;
+  final String username;
   final int id;
 
-  User(this.color, this.id);
+  User(this.color, this.username, this.id);
 }
 
 class Parqueo {

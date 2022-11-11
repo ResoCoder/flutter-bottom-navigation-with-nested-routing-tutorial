@@ -21,7 +21,8 @@ class UserProfilePage extends StatelessWidget {
           children: [
             UserAvatar(
               avatarColor: Colors.white,
-              username: 'user${user.id}',
+              textColor: Colors.black,
+              username: 'Usuario ${user.username}',
             )
           ],
         ),

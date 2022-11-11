@@ -17,6 +17,11 @@ class ParqueosPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text(
+              'SELECCIONAR UN PARQUEADERO',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
             for (int i = 0; i < parqueos.length; i++)
               ParqueoWidget(
                 parqueoColor: parqueos[i].parqueoColor,

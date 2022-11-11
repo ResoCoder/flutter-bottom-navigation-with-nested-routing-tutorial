@@ -17,6 +17,11 @@ class PostsPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text(
+              'SELECCIONAR UN MÉTODO DE PAGO',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
             for (int i = 0; i < posts.length; i++)
               PostTile(
                 tileColor: posts[i].color,
