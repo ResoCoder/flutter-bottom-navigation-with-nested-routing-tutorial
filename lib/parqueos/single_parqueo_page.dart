@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bottom_navigation_with_nested_routing_tutorial/data/app_data.dart';
 import 'package:auto_route/src/router/controller/controller_scope.dart';
 import 'package:flutter_bottom_navigation_with_nested_routing_tutorial/widgets.dart';
+import 'package:flutter_bottom_navigation_with_nested_routing_tutorial/mapa/mapa_page.dart';
 
 class SingleParqueoPage extends StatelessWidget {
   final int parqueoId;

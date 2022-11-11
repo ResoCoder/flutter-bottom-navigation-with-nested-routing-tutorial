@@ -13,7 +13,7 @@ dependencies:
   salomon_bottom_bar: ^3.1.0
   google_maps_flutter_web: ^0.4.0+3
   geolocator: ^9.0.2
-  google_maps_flutter: ^2.2.1
+  google_maps_flutter: ^2.1.8
 
 dev_dependencies:
   flutter_test:
